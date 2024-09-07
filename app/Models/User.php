@@ -15,16 +15,16 @@ class User extends Authenticatable
     static $rules = [
         'nombres' => 'required|string|max:255',
         'apellidos' => 'required|string|max:255',
-        'cedula' => 'required|digits:10|unique:empleados,cedula',
-        'provincia' => 'required|string|max:100',
-        'fecha_nacimiento' => 'required|date|before:today',
-        'email' => 'required|email|unique:empleados,email',
+        'cedula' => 'required|digits:10|unique:users,cedula',
+        'provincia' => 'required|numeric|exists:provincias,id',
+        'fecha_nacimiento' => 'required|date_format:Y-m-d|before:today',
+        'email' => 'required|email|unique:users,email',
         'observaciones' => 'nullable|string',
         'fotografia' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        'fecha_ingreso' => 'required|date|after_or_equal:today',
+        'fecha_ingreso' => 'required|date_format:Y-m-d|after_or_equal:today',
         'cargo' => 'required|string|max:255',
         'departamento' => 'required|string|max:100',
-        'provincia_laboral' => 'required|string|max:100',
+        'provincia_laboral' => 'required|numeric|exists:provincias,id',
         'sueldo' => 'required|numeric|min:0',
         'jornada_parcial' => 'required|boolean',
         'observaciones_laborales' => 'nullable|string',
@@ -39,6 +39,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'nombres',
         'apellidos',
         'cedula',

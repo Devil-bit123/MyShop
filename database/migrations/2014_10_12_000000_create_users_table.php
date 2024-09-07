@@ -14,10 +14,10 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->id();
             $table->string('nombres');
             $table->string('apellidos');
-            $table->string('cedula')->unique();  // Valida que sea única
+            $table->string('cedula')->unique();
             $table->string('provincia');
             $table->date('fecha_nacimiento');
             $table->string('email')->unique();

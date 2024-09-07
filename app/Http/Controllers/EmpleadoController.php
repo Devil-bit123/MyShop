@@ -44,7 +44,6 @@ class EmpleadoController extends Controller
 
             // Retorna una respuesta JSON de éxito
             return response()->json($user, 201);
-
         } catch (ValidationException $e) {
             // Retorna una respuesta JSON con los errores de validación
             return response()->json([
@@ -79,7 +78,6 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $usuarioExistente = User::find($id);
         if (!$usuarioExistente) {
             return response()->json([
@@ -88,10 +86,15 @@ class EmpleadoController extends Controller
         }
 
         try {
-            // Valida los datos del request
-            $validatedData = $request->validate(User::$rules);
+            // Ajustar las reglas de validación para permitir la cédula existente durante la actualización
+            $rules = User::$rules;
+            $rules['cedula'] = 'required|digits:10|unique:users,cedula,' . $id;
+            $rules['email'] = 'required|email|unique:users,email,' . $id;
 
-            // Crea un nuevo usuario con los datos validados
+            // Valida los datos del request con las reglas ajustadas
+            $validatedData = $request->validate($rules);
+
+            // Actualiza el usuario con los datos validados
             $usuarioExistente->update($validatedData);
 
             if ($request->hasFile('fotografia')) {
@@ -101,15 +104,15 @@ class EmpleadoController extends Controller
 
                 $usuarioExistente->fotografia = $request->file('fotografia')->store('fotografias', 'public');
                 $usuarioExistente->save();
-
-                return response()->json($usuarioExistente);
             }
+
+            return response()->json($usuarioExistente);
         } catch (ValidationException $e) {
             // Retorna una respuesta JSON con los errores de validación
             return response()->json([
                 'errors' => $e->errors()
             ], 422); // 422 Unprocessable Entity
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             // Manejo de otras excepciones
             return response()->json([
                 'errors' => 'Error inesperado'

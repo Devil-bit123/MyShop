@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\ProvinciaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,9 @@ Route::prefix('empleados')->group(function () {
 
     // Eliminar un empleado específico
     Route::delete('/{id}', [EmpleadoController::class, 'destroy']);
+});
+
+Route::prefix('provincias')->group(function () {
+    // Obtener la lista de empleados
+    Route::get('/', [ProvinciaController::class, 'index']);
 });

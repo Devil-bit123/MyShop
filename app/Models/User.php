@@ -67,17 +67,16 @@ class User extends Authenticatable
     ];
 
 // En el modelo User
+
 public function provincia()
-{
-    return $this->belongsTo(Provincia::class, 'provincia_id');
-}
+    {
+        return $this->hasOne(Provincia::class,'id','provincia');
+    }
 
-public function provinciaLaboral()
-{
-    return $this->belongsTo(Provincia::class, 'provincia_laboral_id');
-}
-
-
+    public function provinciaLaboral()
+    {
+        return $this->hasOne(Provincia::class,'id','provincia');
+    }
 
 
 }

@@ -19,7 +19,6 @@ if [ "$RUN_MIGRATIONS" = true ]; then
     php /var/www/html/artisan migrate --force
 fi
 
-
 echo "Caching config..."
 php /var/www/html/artisan config:cache
 

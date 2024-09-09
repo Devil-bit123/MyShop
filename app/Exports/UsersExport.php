@@ -1,4 +1,4 @@
-<!--
+<?php
 
 namespace App\Exports;
 
@@ -74,4 +74,4 @@ class UsersExport implements FromCollection, WithMapping, WithHeadings
             'Observaciones Laborales',
         ];
     }
-} -->
+}

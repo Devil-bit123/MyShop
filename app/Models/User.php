@@ -66,4 +66,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+// En el modelo User
+public function provincia()
+{
+    return $this->belongsTo(Provincia::class, 'provincia_id');
+}
+
+public function provinciaLaboral()
+{
+    return $this->belongsTo(Provincia::class, 'provincia_laboral_id');
+}
+
+
+
+
 }

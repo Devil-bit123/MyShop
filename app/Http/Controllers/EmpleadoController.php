@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
@@ -17,7 +19,9 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = User::all();
+        $empleados = User::with('provincia', 'provinciaLaboral')->get();
+        //$empleados = User::all();
+
         return response()->json($empleados);
     }
 
@@ -174,6 +178,11 @@ class EmpleadoController extends Controller
         return response()->json([
             'errors' => 'Usuario no encontrado'
         ], 404); // 404 not found
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 
 }

@@ -25,6 +25,8 @@ Route::prefix('empleados')->group(function () {
     // Obtener la lista de empleados
     Route::get('/', [EmpleadoController::class, 'index']);
 
+    Route::get('/export/', [EmpleadoController::class, 'export']);
+
     // Crear un nuevo empleado
     Route::post('/', [EmpleadoController::class, 'store']);
 

@@ -32,7 +32,7 @@ Route::prefix('empleados')->group(function () {
     Route::get('/{id}', [EmpleadoController::class, 'show']);
 
     // Actualizar un empleado específico
-    Route::put('/{id}', [EmpleadoController::class, 'update']);
+    Route::post('/edit/{id}', [EmpleadoController::class, 'update']);
 
     // Eliminar un empleado específico
     Route::delete('/{id}', [EmpleadoController::class, 'destroy']);

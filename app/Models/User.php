@@ -75,7 +75,7 @@ public function provincia()
 
     public function provinciaLaboral()
     {
-        return $this->hasOne(Provincia::class,'id','provincia');
+        return $this->hasOne(Provincia::class,'id','provincia_laboral');
     }
 
 
